@@ -7,3 +7,13 @@
   --background: #d9d7ef;
   --primary: #7f00b2;
 }
+
+::-webkit-scrollbar {
+  background: transparent;
+  width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7f00b2;
+  border-radius: 2px;
+}
