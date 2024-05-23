@@ -13,6 +13,9 @@ const config: Config = {
         background: "var(--background)",
         primary: "var(--primary)",
       },
+      backgroundImage: {
+        "chat-bg": "url('/chat-bg.jpg')",
+      },
     },
   },
   plugins: [],
