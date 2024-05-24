@@ -1,36 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chat Roomly
 
-## Getting Started
+Chat Roomly é uma aplicação web de chat em tempo real. O principal objetivo do desenvolvimento da aplicação foi aprender mais sobre WebSockets, explorar novas funcionalidades e tecnologias.
 
-First, run the development server:
+👉 [acesse a aplicação](https://chat-roomly.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Preview](https://utfs.io/f/d27bfe1c-d883-449f-acf4-b5c4b77c09d4-gsen88.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Desenvolvi o frontend da aplicação utilizando Next.js em conjunto com TypeScript. A tela inicial foi projetada para fornecer uma breve introdução à aplicação e destacar um botão para login.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Para associar cada mensagem a um usuário, utilizei a biblioteca NextAuth para implementar a autenticação com o Google. Dessa forma, consegui obter o nome e a imagem do usuário, permitindo que ele acesse e interaja no chat de forma efetiva.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+O sistema de envio de mensagens é muito intuitivo, semelhante à maioria dos aplicativos de chat. Na tela de chat, há um campo para inserir a mensagem e um botão para enviá-la. Ao enviar uma mensagem, o chat é atualizado em tempo real, permitindo que você veja sua mensagem instantaneamente, junto com seu nome e foto associados à conta do Google logada.
 
-## Learn More
+As mensagens são armazenadas em um banco de dados e podem ser visualizadas diretamente na tela de chat. Coloquei um botão na tela de chat que, ao ser clicado, exibe todas as mensagens enviadas e salvas no banco de dados.
 
-To learn more about Next.js, take a look at the following resources:
+## Backend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Utilizei o Express para desenvolver o backend e, para garantir a atualização em tempo real do chat, usei WebSockets com a biblioteca Socket.io. Além disso, utilizei o Prisma para conectar ao banco de dados e modelar a estrutura das mensagens. Optei pelo Supabase como banco de dados relacional para armazenar as mensagens da aplicação.
+Você pode conferir o código do backend [aqui](https://github.com/arisonfirmino/api-chat-roomly)
