@@ -1,16 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import Chat from "./chat";
 import Header from "./header";
 import SendMessage from "./send-message";
 import { socket } from "../socket";
 
 export interface FormData {
+  id: string;
   name: string;
   image: string;
   message: string;
+}
+
+export interface NewMessage {
+  name: string;
+  image: string;
+  message: string;
+  isOwner: boolean;
 }
 
 export interface Message {
@@ -18,13 +25,21 @@ export interface Message {
   name: string;
   image: string;
   message: string;
-  isOwner?: boolean;
+  isOwner: boolean;
+  created_at: string;
 }
 
 export default function App() {
   const [socketInstance] = useState(socket());
 
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<NewMessage[]>([]);
+  const [allMessages, setAllMessages] = useState<Message[]>([]);
+
+  useEffect(() => {
+    socketInstance.on("messages", (messages) => {
+      setAllMessages(messages);
+    });
+  }, [socketInstance]);
 
   useEffect(() => {
     socketInstance.on("message", (message) => {
@@ -37,7 +52,8 @@ export default function App() {
   }, [socketInstance]);
 
   const submitForm = (data: FormData) => {
-    const newMessage = { ...data, id: uuidv4(), isOwner: true };
+    const { id, ...messageData } = data;
+    const newMessage: NewMessage = { ...messageData, isOwner: true };
     socketInstance.emit("message", newMessage);
     setMessages((prevMessages) => [...prevMessages, newMessage]);
   };
@@ -46,7 +62,7 @@ export default function App() {
     <main className="flex h-screen w-full cursor-default items-center justify-center text-white xl:max-w-[500px] xl:py-10">
       <div className="flex h-full w-full flex-col xl:overflow-hidden xl:rounded-3xl">
         <Header />
-        <Chat messages={messages} />
+        <Chat allMessages={allMessages} messages={messages} />
         <SendMessage submitForm={submitForm} />
       </div>
     </main>
