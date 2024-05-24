@@ -15,7 +15,7 @@ export default function UserMessage({
 }: UserMessageProps) {
   return (
     <div className="flex items-end justify-end gap-2.5">
-      <div className="flex w-fit flex-col rounded-xl bg-background px-2.5 py-1 md:max-w-[350px]">
+      <div className="flex w-full flex-col rounded-xl bg-background px-2.5 py-1 md:w-fit md:max-w-[350px]">
         <h3 className="text-right text-sm font-medium text-primary">{name}</h3>
         <p className="break-words text-base text-black">{message}</p>
       </div>
