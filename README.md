@@ -4,7 +4,7 @@ Chat Roomly é uma aplicação web de chat em tempo real. O principal objetivo d
 
 👉 [acesse a aplicação](https://chat-roomly.vercel.app)
 
-![Preview](https://utfs.io/f/d27bfe1c-d883-449f-acf4-b5c4b77c09d4-gsen88.png)
+![Preview](https://utfs.io/f/996547c6-8b1a-4dcf-a296-a277094162c4-gsen88.png)
 
 Desenvolvi o frontend da aplicação utilizando Next.js em conjunto com TypeScript. A tela inicial foi projetada para fornecer uma breve introdução à aplicação e destacar um botão para login.
 
