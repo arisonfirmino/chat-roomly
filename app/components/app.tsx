@@ -7,7 +7,6 @@ import SendMessage from "./send-message";
 import { socket } from "../socket";
 
 export interface FormData {
-  id: string;
   name: string;
   image: string;
   message: string;
@@ -52,7 +51,7 @@ export default function App() {
   }, [socketInstance]);
 
   const submitForm = (data: FormData) => {
-    const { id, ...messageData } = data;
+    const { ...messageData } = data;
     const newMessage: NewMessage = { ...messageData, isOwner: true };
     socketInstance.emit("message", newMessage);
     setMessages((prevMessages) => [...prevMessages, newMessage]);
