@@ -17,9 +17,11 @@ export default function Message({ name, image, message }: MessageProps) {
         className="h-7 w-7 rounded-full"
       />
 
-      <div className="flex w-full flex-col rounded-xl bg-background px-2.5 py-1 md:w-fit md:max-w-[350px]">
+      <div className="flex flex-col rounded-xl bg-background px-2.5 py-1 md:w-fit md:max-w-[350px]">
         <h3 className="text-left text-sm font-medium text-primary">{name}</h3>
-        <p className="break-words text-base text-black">{message}</p>
+        <p className="text-base text-black" style={{ wordBreak: "break-word" }}>
+          {message}
+        </p>
       </div>
     </div>
   );
