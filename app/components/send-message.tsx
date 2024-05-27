@@ -1,11 +1,17 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import {
+  ArrowUpIcon,
+  EllipsisIcon,
+  MessageSquareIcon,
+  MessageSquareOffIcon,
+} from "lucide-react";
 import { FormData } from "./app";
-import { LuArrowUp } from "react-icons/lu";
-import { useSession } from "next-auth/react";
+import { Message } from "./app";
 
 const schema = yup.object({
   message: yup.string().required(),
@@ -13,9 +19,16 @@ const schema = yup.object({
 
 interface SendMessageProps {
   submitForm: (data: FormData) => void;
+  prevMessages: boolean;
+  setPrevMessages: () => void;
+  allMessages: Message[];
 }
 
-export default function SendMessage({ submitForm }: SendMessageProps) {
+export default function SendMessage({
+  submitForm,
+  prevMessages,
+  setPrevMessages,
+}: SendMessageProps) {
   const { data } = useSession();
 
   const {
@@ -29,6 +42,13 @@ export default function SendMessage({ submitForm }: SendMessageProps) {
 
   const name = data?.user?.name ?? "";
   const image = data?.user?.image ?? "";
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      handleSubmit(onSubmit)();
+      event.preventDefault();
+    }
+  };
 
   const onSubmit = (data: { message: string }) => {
     const formData = {
@@ -44,18 +64,40 @@ export default function SendMessage({ submitForm }: SendMessageProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex items-center gap-2.5 bg-background p-2.5"
+      className="flex items-center gap-2.5 bg-background p-2.5 text-background"
     >
+      <div className="flex items-center gap-2.5">
+        <button
+          onClick={setPrevMessages}
+          type="button"
+          className="flex items-center justify-center rounded-full bg-primary p-1.5 active:bg-gray-400"
+        >
+          {prevMessages ? (
+            <MessageSquareIcon size={16} />
+          ) : (
+            <MessageSquareOffIcon size={16} />
+          )}
+        </button>
+
+        <button
+          type="button"
+          className="flex cursor-not-allowed items-center justify-center rounded-full bg-primary p-1.5"
+        >
+          <EllipsisIcon size={16} />
+        </button>
+      </div>
+
       <textarea
         rows={1}
         {...register("message")}
-        className="w-full rounded-full border border-solid border-gray-400 px-1.5 text-black outline-none"
+        onKeyDown={handleKeyDown}
+        className={`w-full rounded-full border border-solid px-2.5 text-black outline-none ${errors.message ? "border-red-600" : "border-gray-400"}`}
       ></textarea>
       <button
         type="submit"
         className="rounded-full bg-primary p-1.5 active:bg-gray-400"
       >
-        <LuArrowUp size={16} />
+        <ArrowUpIcon size={16} />
       </button>
     </form>
   );

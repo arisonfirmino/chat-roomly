@@ -10,21 +10,16 @@ import UserMessage from "./user-message";
 interface ChatProps {
   messages: NewMessage[];
   allMessages: MessageType[];
+  prevMessages: boolean;
 }
 
-export default function Chat({ messages, allMessages }: ChatProps) {
-  const [prevMessages, setPrevMessages] = useState(false);
-
+export default function Chat({
+  messages,
+  allMessages,
+  prevMessages,
+}: ChatProps) {
   return (
-    <div className="flex h-full flex-col gap-5 overflow-auto bg-main bg-chat-bg bg-cover bg-center p-2.5">
-      <button
-        onClick={() => setPrevMessages(!prevMessages)}
-        className={`flex items-center justify-center gap-2 rounded bg-[#7f00b2] ${prevMessages ? "bg-opacity-100" : "bg-opacity-70"}`}
-      >
-        mensagens anteriores
-        {prevMessages ? <LuChevronUp /> : <LuChevronDown />}
-      </button>
-
+    <div className="flex h-full flex-col gap-5 overflow-auto bg-main bg-chat-bg bg-cover bg-center p-2.5 xl:bg-none">
       {prevMessages && (
         <div className="flex flex-col gap-5">
           {allMessages.map((message) => (

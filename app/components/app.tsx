@@ -33,6 +33,7 @@ export default function App() {
 
   const [messages, setMessages] = useState<NewMessage[]>([]);
   const [allMessages, setAllMessages] = useState<Message[]>([]);
+  const [prevMessages, setPrevMessages] = useState(false);
 
   useEffect(() => {
     socketInstance.on("messages", (messages) => {
@@ -58,11 +59,20 @@ export default function App() {
   };
 
   return (
-    <main className="flex h-screen w-full cursor-default items-center justify-center text-white xl:max-w-[500px] xl:py-10">
+    <main className="flex h-screen w-full xl:px-40 xl:py-10 2xl:px-60">
       <div className="flex h-full w-full flex-col xl:overflow-hidden xl:rounded-3xl">
         <Header />
-        <Chat allMessages={allMessages} messages={messages} />
-        <SendMessage submitForm={submitForm} />
+        <Chat
+          allMessages={allMessages}
+          messages={messages}
+          prevMessages={prevMessages}
+        />
+        <SendMessage
+          submitForm={submitForm}
+          allMessages={allMessages}
+          prevMessages={prevMessages}
+          setPrevMessages={() => setPrevMessages(!prevMessages)}
+        />
       </div>
     </main>
   );
